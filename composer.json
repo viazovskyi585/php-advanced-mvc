@@ -1,0 +1,17 @@
+{
+    "name": "evgeniy/php-advanced-mvc",
+    "autoload": {
+        "psr-4": {
+            "Config\\": "Config/"
+        }
+    },
+    "authors": [
+        {
+            "name": "evgeniy",
+            "email": "vyazovsky.ea@gmail.com"
+        }
+    ],
+    "require": {
+        "vlucas/phpdotenv": "^5.5"
+    }
+}
