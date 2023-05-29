@@ -1,6 +1,7 @@
 <?php
-use Config\Config;
 use Dotenv\Dotenv;
+use Core\Db;
+
 require_once dirname(__DIR__) . '/Config/constants.php';
 require_once BASE_DIR . '/vendor/autoload.php';
 
@@ -13,9 +14,8 @@ try {
     $dotenv->load();
 
 
-	$host = Config::get('db.user');
-
-	echo $host;
+	$pdo = Db::connect();
+    var_dump($pdo);
 
 } catch (Exception $exception) {
     echo "Exception: " . $exception->getMessage();

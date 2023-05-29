@@ -1,16 +1,20 @@
 {
     "name": "evgeniy/php-advanced-mvc",
-    "autoload": {
-        "psr-4": {
-            "Config\\": "Config/"
-        }
-    },
     "authors": [
         {
             "name": "evgeniy",
             "email": "vyazovsky.ea@gmail.com"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "Config\\": "Config/",
+            "Core\\": "Core/"
+        },
+        "files": [
+            "Config/helpers.php"
+        ]
+    },
     "require": {
         "vlucas/phpdotenv": "^5.5"
     }
