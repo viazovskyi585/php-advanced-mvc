@@ -15,7 +15,16 @@ try {
 
 
 	$pdo = Db::connect();
-    var_dump($pdo);
+    
+    $query = 'SELECT * FROM migrations';
+
+    $stmt = $pdo->prepare($query);
+    $stmt->execute();
+    $migrations = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+    echo "<pre>";
+    print_r($migrations);
+    echo "</pre>";
 
 } catch (Exception $exception) {
     echo "Exception: " . $exception->getMessage();
