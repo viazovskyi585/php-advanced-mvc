@@ -9,7 +9,8 @@
     "autoload": {
         "psr-4": {
             "Config\\": "Config/",
-            "Core\\": "Core/"
+            "Core\\": "Core/",
+            "CLI\\": "CLI/"
         },
         "files": [
             "Config/helpers.php"
