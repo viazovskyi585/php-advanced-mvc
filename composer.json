@@ -10,13 +10,15 @@
         "psr-4": {
             "Config\\": "Config/",
             "Core\\": "Core/",
-            "CLI\\": "CLI/"
+            "CLI\\": "CLI/",
+            "App\\": "App/"
         },
         "files": [
             "Config/helpers.php"
         ]
     },
     "require": {
-        "vlucas/phpdotenv": "^5.5"
+        "vlucas/phpdotenv": "^5.5",
+        "larapack/dd": "^1.1"
     }
 }
