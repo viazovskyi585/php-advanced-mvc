@@ -5,7 +5,7 @@ require_once dirname(__DIR__) . '/Config/constants.php';
 require_once BASE_DIR . '/vendor/autoload.php';
 
 use App\Models\Folder;
-use App\Models\User;
+use App\Models\Note;
 
 try {
     if (!session_id()) {
@@ -16,7 +16,7 @@ try {
     $dotenv->load();
 
 
-    $users = Folder::select()->get();
+    $users = Note::select()->get();
 
     d($users);
 
