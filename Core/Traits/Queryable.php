@@ -18,6 +18,15 @@ trait Queryable
 		static::$commands = [];
 	}
 
+    protected function getIdString(): int
+    {
+        if (!isset($this->id)) {
+            throw new \Exception("[Queryable]: Model does not have an id");
+        }
+
+        return $this->id;
+    }
+
 	public function get(): array
     {
         $result =  Db::connect()->query(static::$query)->fetchAll(PDO::FETCH_CLASS, static::class);
@@ -80,7 +89,7 @@ trait Queryable
 	{
 		$query = "UPDATE " . static::$tableName . " SET" . $this->updatePlaceholders(array_keys($fields)) . " WHERE id=:id";
         $query = Db::connect()->prepare($query);
-        $fields['id'] = $this->id;
+        $fields['id'] = $this->getId();
 
         return $query->execute($fields);
 	}
@@ -89,7 +98,7 @@ trait Queryable
 	{
 		$query = "DELETE FROM " . static::$tableName . " WHERE id=:id";
 		$query = Db::connect()->prepare($query);
-		$query->bindParam(':id', $this->id);
+		$query->bindParam(':id', $this->getId());
 
 		return $query->execute();
 	}
@@ -155,5 +164,17 @@ trait Queryable
         }
 
         return false;
+    }
+
+    protected function updatePlaceholders(array $keys): string
+    {
+        $string = "";
+        $lastKey = array_key_last($keys);
+
+        foreach ($keys as $index => $key) {
+            $string .= " {$key}=:{$key}" . ($lastKey === $index ? '' : ',');
+        }
+
+        return $string;
     }
 }
