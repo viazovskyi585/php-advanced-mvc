@@ -18,13 +18,13 @@ trait Queryable
 		static::$commands = [];
 	}
 
-    protected function getIdString(): int
+    protected function getId(): int
     {
         if (!isset($this->id)) {
             throw new \Exception("[Queryable]: Model does not have an id");
         }
 
-        return $this->id;
+        return $this->id; 
     }
 
 	public function get(): array
@@ -98,9 +98,8 @@ trait Queryable
 	{
 		$query = "DELETE FROM " . static::$tableName . " WHERE id=:id";
 		$query = Db::connect()->prepare($query);
-		$query->bindParam(':id', $this->getId());
 
-		return $query->execute();
+		return $query->execute(['id' => $this->getId()]);
 	}
 
 	public function where(string $column, string $operator, $value): static

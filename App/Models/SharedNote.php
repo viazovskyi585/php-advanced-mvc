@@ -10,5 +10,5 @@ class SharedNote extends Model
 
 	public int $note_id;
 	public int $folder_id;
-	public string $created_at;
+	public string $created_at;	
 }
