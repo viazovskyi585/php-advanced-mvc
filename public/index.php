@@ -1,9 +1,13 @@
 <?php
 use Dotenv\Dotenv;
-use Core\Db;
 
 require_once dirname(__DIR__) . '/Config/constants.php';
 require_once BASE_DIR . '/vendor/autoload.php';
+
+use App\Models\User;
+use App\Models\Folder;
+use App\Models\Note;
+use App\Models\SharedNote;
 
 try {
     if (!session_id()) {
@@ -14,17 +18,8 @@ try {
     $dotenv->load();
 
 
-	$pdo = Db::connect();
-    
-    $query = 'SELECT * FROM migrations';
-
-    $stmt = $pdo->prepare($query);
-    $stmt->execute();
-    $migrations = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
-    echo "<pre>";
-    print_r($migrations);
-    echo "</pre>";
+    $sNote = SharedNote::select()->get()[0];
+    d($sNote);
 
 } catch (Exception $exception) {
     echo "Exception: " . $exception->getMessage();
