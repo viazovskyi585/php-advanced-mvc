@@ -8,7 +8,7 @@ function config(string $name): string|null
     return Config::get($name);
 }
 
-function view(string $viewName, array $args = []): void
+function view(string $viewName, array $args = [])
 {
     return View::render($viewName, $args);
 }
