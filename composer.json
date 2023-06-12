@@ -1,24 +1,25 @@
 {
-    "name": "evgeniy/php-advanced-mvc",
-    "authors": [
-        {
-            "name": "evgeniy",
-            "email": "vyazovsky.ea@gmail.com"
-        }
-    ],
-    "autoload": {
-        "psr-4": {
-            "Config\\": "Config/",
-            "Core\\": "Core/",
-            "CLI\\": "CLI/",
-            "App\\": "App/"
-        },
-        "files": [
-            "Config/helpers.php"
-        ]
-    },
-    "require": {
-        "vlucas/phpdotenv": "^5.5",
-        "larapack/dd": "^1.1"
-    }
+	"name": "evgeniy/php-advanced-mvc",
+	"authors": [
+		{
+			"name": "evgeniy",
+			"email": "vyazovsky.ea@gmail.com"
+		}
+	],
+	"autoload": {
+		"psr-4": {
+			"Config\\": "Config/",
+			"Core\\": "Core/",
+			"CLI\\": "CLI/",
+			"App\\": "App/"
+		},
+		"files": [
+			"Config/helpers.php",
+			"routes/web.php"
+		]
+	},
+	"require": {
+		"vlucas/phpdotenv": "^5.5",
+		"larapack/dd": "^1.1"
+	}
 }
