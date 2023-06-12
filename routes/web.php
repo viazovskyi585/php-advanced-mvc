@@ -9,7 +9,7 @@ Router::add('users/{user_id:\d+}/note/{note_id:\d}', [
 	'method' => 'GET',
 ]);
 
-Router::add('users/{user_id:\d+}/note/{note_id:\d}/edit', [
+Router::add('users/{user_id:\d+}/note/{slug:\D+}/edit', [
 	'controller' => NoteController::class,
 	'action' => 'edit',
 	'method' => 'GET',
