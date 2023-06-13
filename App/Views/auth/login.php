@@ -3,7 +3,7 @@ view('components/header');
 ?>
 
 <main class="d-flex vh-100 align-items-center py-4 bg-body-tertiary">
-	<div class="form-signin w-50 px-4 m-auto">
+	<div class="form-signin w-100 px-4 m-auto" style="max-width: 400px;">
 		<form>
 			<h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
