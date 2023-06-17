@@ -17,3 +17,9 @@ function url(string $path): string
 {
     return SITE_URL . '/' . $path;
 }
+
+function redirect(string $path): void
+{
+    header('Location: ' . url($path));
+    exit;
+}

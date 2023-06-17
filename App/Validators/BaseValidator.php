@@ -75,8 +75,13 @@ class BaseValidator
 		return $this->errors;
 	}
 
-	protected function setError(string $field, string $message): void
+	public function setError(string $field, string $message): void
 	{
 		$this->errors[$field][] = $message;
+	}
+
+	public function setNonFieldError(string $message): void
+	{
+		$this->errors['non_field_errors'][] = $message;
 	}
 }

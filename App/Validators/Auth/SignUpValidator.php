@@ -61,8 +61,6 @@ class SignUpValidator extends BaseAuthValidator
 			return false;
 		}
 
-		$emailExists = $this->checkEmailOnExists($fields['email']);
-
-		return !$emailExists;
+		return !$this->checkEmailOnExists($fields['email']);
 	}
 }

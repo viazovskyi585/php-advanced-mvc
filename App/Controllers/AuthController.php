@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Models\User;
+use App\Services\User\UserCreateService;
 use App\Validators\Auth\SignUpValidator;
 use Core\Controller;
 
@@ -23,8 +25,12 @@ class AuthController extends Controller
 		$validator = new SignUpValidator();
 
 		if ($validator->validate($fields)) {
-			// create user
-			// redirect to login page
+			try {
+				UserCreateService::call($fields);
+				redirect('login');
+			} catch (\Exception $e) {
+				$validator->setNonFieldError($e->getMessage());
+			}
 		}
 
 		dd($validator->getErrors());
