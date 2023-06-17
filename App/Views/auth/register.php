@@ -21,8 +21,8 @@ view('components/header');
 					<label for="password">Password</label>
 				</div>
 				<div class="form-floating">
-					<input type="password" name="password-confirm" class="form-control" id="password-confirm" placeholder="Password">
-					<label for="password-confirm">Confirm Password</label>
+					<input type="password" name="password_confirmation" class="form-control" id="password-confirm" placeholder="Password">
+					<label for="password_confirmation">Confirm Password</label>
 				</div>
 			</div>
 

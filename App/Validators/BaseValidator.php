@@ -24,8 +24,6 @@ class BaseValidator
 			}
 		}
 
-		$this->additionalValidation($fields);
-
 		return empty($this->errors);
 	}
 
@@ -70,11 +68,6 @@ class BaseValidator
 		if ($value !== $fields[$sameAs]) {
 			$this->setError($field, $this->errorMessages[$field]['sameAs']);
 		}
-	}
-
-	protected function additionalValidation(array $fields): void
-	{
-		// override this method in child class
 	}
 
 	public function getErrors(): array

@@ -54,8 +54,15 @@ class SignUpValidator extends BaseAuthValidator
 		],
 	];
 
-	protected function additionalValidation(array $fields): void
+	public function validate(array $fields): bool
 	{
-		$this->checkEmailOnExists($fields['email']);
+		$result = parent::validate($fields);
+		if (!$result) {
+			return false;
+		}
+
+		$emailExists = $this->checkEmailOnExists($fields['email']);
+
+		return !$emailExists;
 	}
 }
