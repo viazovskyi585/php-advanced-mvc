@@ -4,7 +4,7 @@ view('components/header');
 <link href="<?= ASSETS_URI ?>styles/auth.css" rel="stylesheet">
 <main class="d-flex align-items-center py-4 bg-body-tertiary">
 	<div class="form-auth w-100 m-auto">
-		<form>
+		<form method="post" action="<?= url('auth/sign-up') ?>">
 			<h1 class="h3 mb-3 fw-normal">Register</h1>
 
 			<div class="fields">
@@ -21,7 +21,7 @@ view('components/header');
 					<label for="password">Password</label>
 				</div>
 				<div class="form-floating">
-					<input type="password-confirm" name="password-confirm" class="form-control" id="password-confirm" placeholder="Password">
+					<input type="password" name="password-confirm" class="form-control" id="password-confirm" placeholder="Password">
 					<label for="password-confirm">Confirm Password</label>
 				</div>
 			</div>
@@ -30,7 +30,7 @@ view('components/header');
 			<button class="btn btn-primary w-100 py-2 mt-3" type="submit">Register</button>
 
 			<div class="text-center mt-3">
-				<a href="/login">Already have an account?</a>
+				<a href="<?= url('login') ?>">Already have an account?</a>
 			</div>
 		</form>
 </main>

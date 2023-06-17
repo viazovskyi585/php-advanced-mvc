@@ -14,3 +14,9 @@ Router::add('register', [
 	'action' => 'register',
 	'method' => 'GET',
 ]);
+
+Router::add('auth/sign-up', [
+	'controller' => \App\Controllers\AuthController::class,
+	'action' => 'signUp',
+	'method' => 'POST'
+]);
