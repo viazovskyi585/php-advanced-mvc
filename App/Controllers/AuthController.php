@@ -33,6 +33,9 @@ class AuthController extends Controller
 			}
 		}
 
-		dd($validator->getErrors());
+		view('auth/register', [
+			'errors' => $validator->getErrors(),
+			'fields' => $fields
+		]);
 	}
 }

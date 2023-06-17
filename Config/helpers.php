@@ -23,3 +23,13 @@ function redirect(string $path): void
     header('Location: ' . url($path));
     exit;
 }
+
+function getFieldError(string $field, array $errors): string
+{
+    return isset($errors[$field]) ? $errors[$field][0] : '';
+}
+
+function getFieldState(string $error): string
+{
+    return $error ? 'is-invalid' : 'is-valid';
+}
