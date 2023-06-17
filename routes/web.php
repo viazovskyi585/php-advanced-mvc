@@ -8,3 +8,9 @@ Router::add('login', [
 	'action' => 'login',
 	'method' => 'GET',
 ]);
+
+Router::add('register', [
+	'controller' => AuthController::class,
+	'action' => 'register',
+	'method' => 'GET',
+]);

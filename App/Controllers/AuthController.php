@@ -6,8 +6,13 @@ use Core\Controller;
 
 class AuthController extends Controller
 {
-	public function login()
+	public function login(): void
 	{
-		return view('auth/login');
+		view('auth/login');
+	}
+
+	public function register(): void
+	{
+		view('auth/register');
 	}
 }
