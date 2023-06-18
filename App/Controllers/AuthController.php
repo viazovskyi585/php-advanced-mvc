@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Helpers\Session;
 use App\Models\User;
 use App\Services\AuthService;
 use App\Services\User\UserCreateService;
@@ -47,12 +48,31 @@ class AuthController extends Controller
 		$validator = new SignInValidator();
 
 		if (AuthService::call($fields, $validator)) {
-			d('Logged in');
+			redirect();
 		} else {
 			view('auth/login', [
 				'errors' => $validator->getErrors(),
 				'fields' => $fields
 			]);
 		}
+	}
+
+	public function signOut(): void
+	{
+		Session::destroy();
+		redirect('login');
+	}
+
+	public function before(string $action): bool
+	{
+		if (in_array($action, ['login', 'register']) && Session::check()) {
+			if (!empty($_SERVER['HTTP_REFERER'])) {
+				redirectBack();
+			} else {
+				redirect();
+			}
+		}
+
+		return parent::before($action);
 	}
 }

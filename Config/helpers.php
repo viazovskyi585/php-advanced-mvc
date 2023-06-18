@@ -18,9 +18,15 @@ function url(string $path): string
     return SITE_URL . '/' . $path;
 }
 
-function redirect(string $path): void
+function redirect(string $path = ''): void
 {
     header('Location: ' . url($path));
+    exit;
+}
+
+function redirectBack(string $path = ''): void
+{
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
     exit;
 }
 

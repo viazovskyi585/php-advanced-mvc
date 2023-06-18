@@ -96,7 +96,7 @@ $passwordConfirmationError = getFieldError('password_confirmation', $errors);
 				<a href="<?= url('login') ?>">Already have an account?</a>
 			</div>
 		</form>
-</main>
+	</div>
 </main>
 
 <?php

@@ -62,7 +62,7 @@ $passwordError = getFieldError('password', $errors);
 				<a href="<?= url('register') ?>">Don't have an account?</a>
 			</div>
 		</form>
-</main>
+	</div>
 </main>
 
 <?php

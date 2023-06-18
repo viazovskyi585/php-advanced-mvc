@@ -26,3 +26,15 @@ Router::add('auth/sign-in', [
 	'action' => 'signIn',
 	'method' => 'POST'
 ]);
+
+Router::add('auth/sign-out', [
+	'controller' => \App\Controllers\AuthController::class,
+	'action' => 'signOut',
+	'method' => 'POST'
+]);
+
+Router::add('', [
+	'controller' => \App\Controllers\HomeController::class,
+	'action' => 'index',
+	'method' => 'GET'
+]);
