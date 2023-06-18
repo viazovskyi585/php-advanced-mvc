@@ -20,3 +20,9 @@ Router::add('auth/sign-up', [
 	'action' => 'signUp',
 	'method' => 'POST'
 ]);
+
+Router::add('auth/sign-in', [
+	'controller' => \App\Controllers\AuthController::class,
+	'action' => 'signIn',
+	'method' => 'POST'
+]);

@@ -1,5 +1,6 @@
 <?php
 view('components/header');
+
 $fields = $fields ?? [];
 $errors = $errors ?? [];
 

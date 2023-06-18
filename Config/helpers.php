@@ -31,5 +31,5 @@ function getFieldError(string $field, array $errors): string
 
 function getFieldState(string $error): string
 {
-    return $error ? 'is-invalid' : 'is-valid';
+    return $error ? 'is-invalid' : '';
 }
