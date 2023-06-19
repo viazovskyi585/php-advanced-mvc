@@ -1,4 +1,5 @@
 <?php
+
 namespace Core;
 
 class Router
@@ -6,9 +7,9 @@ class Router
 	static protected array $routes = [], $params = [];
 
 	static protected array $convertTypes = [
-        'd' => 'int',
-        'D' => 'string',
-    ];
+		'd' => 'int',
+		'D' => 'string',
+	];
 
 	static public function add(string $route, array $params): void
 	{
@@ -53,28 +54,28 @@ class Router
 	static protected function getRouteParams(string $route, array $matches, array $params): array
 	{
 		preg_match_all('/\(\?P<[\w]+>\\\\(\w[\+]*)\)/', $route, $types);
-        $matches = array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
+		$matches = array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
 
-        if (!empty($types)) {
-            $lastKey = array_key_last($types);
-            $step = 0;
-            $types[$lastKey] = str_replace('+', '', $types[$lastKey]);
+		if (!empty($types)) {
+			$lastKey = array_key_last($types);
+			$step = 0;
+			$types[$lastKey] = str_replace('+', '', $types[$lastKey]);
 
-            foreach ($matches as $name => $match) {
-                settype($match, static::$convertTypes[$types[$lastKey][$step]]);
-                $params[$name] = $match;
-                $step++;
-            }
-        }
+			foreach ($matches as $name => $match) {
+				settype($match, static::$convertTypes[$types[$lastKey][$step]]);
+				$params[$name] = $match;
+				$step++;
+			}
+		}
 
-        return $params;
+		return $params;
 	}
 
 	static protected function checkRequestMethod(): void
 	{
 		if (array_key_exists('method', static::$params)) {
 			$requestMethod = strtolower($_SERVER['REQUEST_METHOD']);
-		
+
 			if (strtolower(static::$params['method']) !== $requestMethod) {
 				throw new \Exception("Method [$requestMethod] not allowed for this route.", 405);
 			}
@@ -88,7 +89,7 @@ class Router
 	static protected function getController(): Controller
 	{
 		$controller = static::$params['controller'] ?? null;
-		
+
 		if (!class_exists($controller)) {
 			throw new \Exception("Controller [$controller] not found.", 404);
 		}
