@@ -34,7 +34,37 @@ Router::add('auth/sign-out', [
 ]);
 
 Router::add('', [
-	'controller' => \App\Controllers\HomeController::class,
+	'controller' => \App\Controllers\FoldersController::class,
 	'action' => 'index',
 	'method' => 'GET'
+]);
+
+Router::add('folders/{id:\d+}', [
+	'controller' => \App\Controllers\FoldersController::class,
+	'action' => 'show',
+	'method' => 'GET'
+]);
+
+Router::add('folders/create', [
+	'controller' => \App\Controllers\FoldersController::class,
+	'action' => 'create',
+	'method' => 'GET'
+]);
+
+Router::add('folders/store', [
+	'controller' => \App\Controllers\FoldersController::class,
+	'action' => 'store',
+	'method' => 'POST'
+]);
+
+Router::add('folders/{id:\d+}/edit', [
+	'controller' => \App\Controllers\FoldersController::class,
+	'action' => 'edit',
+	'method' => 'GET'
+]);
+
+Router::add('folders/{id:\d+}/update', [
+	'controller' => \App\Controllers\FoldersController::class,
+	'action' => 'update',
+	'method' => 'POST'
 ]);

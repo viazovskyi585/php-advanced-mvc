@@ -10,6 +10,7 @@ class Note extends Model
 
 	public int $author_id;
 	public int $folder_id;
+	public string $title;
 	public string $content;
 	public bool $pinned;
 	public bool $completed;
