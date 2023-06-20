@@ -88,6 +88,17 @@ class FoldersController extends Controller
 		]);
 	}
 
+	public function destroy(int $id)
+	{
+		$folder = Folder::find($id);
+
+		if ($folder->destroy()) {
+			redirect();
+		}
+
+		redirectBack();
+	}
+
 	public function before(string $action, array $params = []): bool
 	{
 		if (!Session::check()) {

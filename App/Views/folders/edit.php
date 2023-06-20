@@ -13,7 +13,7 @@ $title = $fields['title'] ?? $folder->title;
 	<main class="form-signin mt-5 m-auto"
 		  style="width: 300px">
 		<form method="post"
-			  action="<?= url('folders/store') ?>">
+			  action="<?= url("folders/{$folder->id}/update") ?>">
 			<h1 class="h3 mb-3 fw-normal">New Folder</h1>
 
 			<div class="form-floating">

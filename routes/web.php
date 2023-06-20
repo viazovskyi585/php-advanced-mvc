@@ -68,3 +68,9 @@ Router::add('folders/{id:\d+}/update', [
 	'action' => 'update',
 	'method' => 'POST'
 ]);
+
+Router::add('folders/{id:\d+}/destroy', [
+	'controller' => \App\Controllers\FoldersController::class,
+	'action' => 'destroy',
+	'method' => 'POST'
+]);
