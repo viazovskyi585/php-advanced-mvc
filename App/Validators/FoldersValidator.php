@@ -21,4 +21,8 @@ class FoldersValidator extends BaseValidator
 			'max' => 'Title must be less than 255 characters',
 		]
 	];
+
+	protected array $sqlErrorCodeMessages = [
+		'1062' => 'Folder with this title already exists',
+	];
 }

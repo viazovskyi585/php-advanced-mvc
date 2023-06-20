@@ -54,8 +54,12 @@ class FoldersController extends Controller
 		$fields = filter_input_array(INPUT_POST, $_POST);
 		$validator = new FoldersValidator();
 
-		if ($validator->validate($fields) && $folderId = Folder::create(array_merge($fields, ['author_id' => Session::id()]))) {
-			redirect("folders/{$folderId}");
+		try {
+			if ($validator->validate($fields) && $folderId = Folder::create(array_merge($fields, ['author_id' => Session::id()]))) {
+				redirect("folders/{$folderId}");
+			}
+		} catch (\PDOException $e) {
+			$validator->handleSqlError($e);
 		}
 
 		view('folders/create', [
@@ -77,8 +81,12 @@ class FoldersController extends Controller
 		$validator = new FoldersValidator();
 		$folder = Folder::find($id);
 
-		if ($validator->validate($fields) && $folder->update($fields)) {
-			redirect("folders/{$id}");
+		try {
+			if ($validator->validate($fields) && $folder->update($fields)) {
+				redirect("folders/{$id}");
+			}
+		} catch (\PDOException $e) {
+			$validator->handleSqlError($e);
 		}
 
 		view('folders/edit', [

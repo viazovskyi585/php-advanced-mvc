@@ -6,7 +6,7 @@ namespace App\Validators;
 
 class BaseValidator
 {
-	protected array $rules = [], $errors = [], $errorMessages = [];
+	protected array $rules = [], $errors = [], $errorMessages = [], $sqlErrorCodeMessages = [];
 
 	public function validate(array $fields): bool
 	{
@@ -83,5 +83,14 @@ class BaseValidator
 	public function setNonFieldError(string $message): void
 	{
 		$this->errors['non_field_errors'][] = $message;
+	}
+
+	public function handleSqlError(\PDOException $e): void
+	{
+		$code = $e->errorInfo[1];
+
+		if (array_key_exists($code, $this->sqlErrorCodeMessages)) {
+			$this->setNonFieldError($this->sqlErrorCodeMessages[$code]);
+		}
 	}
 }

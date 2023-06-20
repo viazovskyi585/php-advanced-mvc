@@ -16,6 +16,15 @@ $title = $fields['title'] ?? $folder->title;
 			  action="<?= url("folders/{$folder->id}/update") ?>">
 			<h1 class="h3 mb-3 fw-normal">New Folder</h1>
 
+			<?php if (isset($errors['non_field_errors'])) : ?>
+				<?php foreach ($errors['non_field_errors'] as $error) : ?>
+					<div class="alert alert-danger"
+						 role="alert">
+						<?= $error ?>
+					</div>
+				<?php endforeach; ?>
+			<?php endif; ?>
+
 			<div class="form-floating">
 				<input type="text"
 					   class="form-control"
