@@ -17,3 +17,5 @@
 		</div>
 	</div>
 </header>
+
+<?php view('components/notifications') ?>

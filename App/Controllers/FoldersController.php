@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Helpers\Notifications;
 use App\Helpers\Session;
 use App\Models\Folder;
 use App\Models\Note;
