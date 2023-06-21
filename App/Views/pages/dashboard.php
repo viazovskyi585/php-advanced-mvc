@@ -1,11 +1,9 @@
 <?php
-view('components/header');
+view('components/full-header');
 
 /** @var User|null $user */
 $user = $user ?? [];
 ?>
-
-<?= view('components/layout/header'); ?>
 
 <main>
 	<div class="page-content container note-has-grid">

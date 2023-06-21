@@ -2,7 +2,6 @@
 
 namespace App\Controllers;
 
-use App\Helpers\Notifications;
 use App\Helpers\Session;
 use App\Models\Folder;
 use App\Models\Note;
@@ -25,7 +24,6 @@ class FoldersController extends Controller
 			->get();
 
 		$activeFolder = findObjectById($folders, $activeFolderId);
-
 		view('pages/dashboard', compact('notes', 'folders', 'activeFolder'));
 	}
 
@@ -57,7 +55,7 @@ class FoldersController extends Controller
 
 		try {
 			if ($validator->validate($fields) && $folderId = Folder::create(array_merge($fields, ['author_id' => Session::id()]))) {
-				Notifications::notify('Folder created successfully', 'success');
+				Session::notify('Folder created successfully', 'success');
 				redirect("folders/{$folderId}");
 			}
 		} catch (\PDOException $e) {
@@ -85,7 +83,7 @@ class FoldersController extends Controller
 
 		try {
 			if ($validator->validate($fields) && $folder->update($fields)) {
-				Notifications::notify('Folder updated successfully', 'success');
+				Session::notify('Folder updated successfully', 'success');
 				redirect("folders/{$id}");
 			}
 		} catch (\PDOException $e) {
@@ -104,7 +102,7 @@ class FoldersController extends Controller
 		$folder = Folder::find($id);
 
 		if ($folder->destroy()) {
-			Notifications::notify('Folder deleted successfully', 'success');
+			Session::notify('Folder deleted successfully', 'success');
 			redirect();
 		}
 

@@ -39,6 +39,11 @@ class Session
 		$_SESSION['notifications'][] = compact('message', 'type');
 	}
 
+	static public function getNotifications(): array
+	{
+		return $_SESSION['notifications'] ?? [];
+	}
+
 	static public function flushNotifications(): void
 	{
 		unset($_SESSION['notifications']);

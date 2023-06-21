@@ -1,5 +1,6 @@
 <?php
 
+use App\Helpers\Session;
 use Config\Config;
 use Core\View;
 
@@ -16,6 +17,11 @@ function view(string $viewName, array $args = []): void
 function url(string $path = ''): string
 {
     return SITE_URL . '/' . $path;
+}
+
+function urlBack(): string
+{
+    return $_SERVER['HTTP_REFERER'] ?? url();
 }
 
 function redirect(string $path = ''): void
@@ -54,4 +60,12 @@ function findObjectById(array $array, int $id): object|null
     }
 
     return false;
+}
+
+function getAndResetNotifications(): array
+{
+    $notications = Session::getNotifications();
+    Session::flushNotifications();
+
+    return $notications;
 }

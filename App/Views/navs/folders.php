@@ -14,3 +14,9 @@
 			   aria-hidden="true"></i></a>
 	</li>
 </ul>
+<ul class="nav align-items-center d-flex w-100 justify-content-end mb-3">
+	<li class="nav-item d-flex flex-row">
+		<a href="<?= url('notes/create') ?>"
+		   class="btn btn-success">Create note</a>
+	</li>
+</ul>

@@ -74,3 +74,35 @@ Router::add('folders/{id:\d+}/destroy', [
 	'action' => 'destroy',
 	'method' => 'POST'
 ]);
+
+/* NOTES */
+
+Router::add('notes/{id:\d+}', [
+	'controller' => \App\Controllers\NotesController::class,
+	'action' => 'show',
+	'method' => 'GET'
+]);
+
+Router::add('notes/create', [
+	'controller' => \App\Controllers\NotesController::class,
+	'action' => 'create',
+	'method' => 'GET'
+]);
+
+Router::add('notes/store', [
+	'controller' => \App\Controllers\NotesController::class,
+	'action' => 'store',
+	'method' => 'POST'
+]);
+
+Router::add('notes/{id:\d+}/edit', [
+	'controller' => \App\Controllers\NotesController::class,
+	'action' => 'edit',
+	'method' => 'GET'
+]);
+
+Router::add('notes/{id:\d+}/update', [
+	'controller' => \App\Controllers\NotesController::class,
+	'action' => 'update',
+	'method' => 'POST'
+]);

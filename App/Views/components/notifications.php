@@ -1,5 +1,5 @@
 <div class="container w-50">
-	<?php foreach (App\Helpers\Notifications::get() as $notification) : ?>
+	<?php foreach (getAndResetNotifications() as $notification) : ?>
 		<div class="alert alert-<?= $notification['type'] ?> alert-dismissible fade show"
 			 role="alert">
 			<?= $notification['message'] ?>

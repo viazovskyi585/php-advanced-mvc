@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\Session;
 use Core\Model;
 
 class Folder extends Model
@@ -18,5 +19,14 @@ class Folder extends Model
 	public static function isFrozen(int $id): bool
 	{
 		return in_array($id, [static::$GENERAL_FOLDER_ID, static::$SHARED_FOLDER_ID]);
+	}
+
+	public static function getUserFolders(): array
+	{
+		return static::select()
+			->where('author_id', '=', Session::id())
+			->orWhere('id', '=', static::$GENERAL_FOLDER_ID)
+			->orderBy('id')
+			->get();
 	}
 }
