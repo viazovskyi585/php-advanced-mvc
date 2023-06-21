@@ -14,10 +14,7 @@ class FoldersController extends Controller
 	public function index()
 	{
 		$activeFolderId = Folder::$GENERAL_FOLDER_ID;
-		$notes = Note::select()
-			->where('author_id', '=', Session::id())
-			->andWhere('folder_id', '=', 1)
-			->get();
+		$notes = Note::byFolderId($activeFolderId);
 
 		$folders = Folder::select()
 			->whereIn('author_id', [Session::id(), 0])
@@ -29,16 +26,14 @@ class FoldersController extends Controller
 
 	public function show(int $id)
 	{
-		$notes = Note::select()
-			->where('author_id', '=', Session::id())
-			->andWhere('folder_id', '=', $id)
-			->get();
 
 		$folders = Folder::select()
 			->whereIn('author_id', [Session::id(), 0])
 			->get();
 
 		$activeFolder = findObjectById($folders, $id);
+
+		$notes = Note::byFolderId($id);
 
 		view('pages/dashboard', compact('notes', 'folders', 'activeFolder'));
 	}
