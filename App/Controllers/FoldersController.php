@@ -5,7 +5,6 @@ namespace App\Controllers;
 use App\Helpers\Session;
 use App\Models\Folder;
 use App\Models\Note;
-use App\Models\User;
 use App\Validators\FoldersValidator;
 use Core\Controller;
 
