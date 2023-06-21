@@ -63,7 +63,7 @@ trait Queryable
 		return $dbh->fetchObject(static::class);
 	}
 
-	static public function create(array $fields): false|int
+	static public function create(array $fields): int
 	{
 		$params = static::prepareQueryParams($fields);
 
