@@ -2,6 +2,8 @@
 
 namespace App\Validators;
 
+use App\Helpers\Session;
+use App\Models\Folder;
 
 class NotesValidator extends BaseValidator
 {
@@ -36,4 +38,28 @@ class NotesValidator extends BaseValidator
 			'max' => 'Content must be less than 10000 characters',
 		]
 	];
+
+	public function validateFolderId(int $folderId): bool
+	{
+		$result = (bool) Folder::select()
+			->where('id', '=', $folderId)
+			->whereIn('author_id', [Session::id(), 0])
+			->get();
+
+		if (!$result) {
+			$this->setNonFieldError('Folder does not exists or does not related to the current user');
+		}
+
+		return $result;
+	}
+
+	public function validate(array $fields = []): bool
+	{
+		$result = [
+			parent::validate($fields),
+			$this->validateFolderId($fields['folder_id'])
+		];
+
+		return !in_array(false, $result);
+	}
 }
