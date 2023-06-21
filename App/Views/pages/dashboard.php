@@ -1,8 +1,5 @@
 <?php
 view('components/full-header');
-
-/** @var User|null $user */
-$user = $user ?? [];
 ?>
 
 <main>
