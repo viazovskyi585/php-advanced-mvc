@@ -1,0 +1,30 @@
+html,
+body,
+main {
+	height: 100%;
+}
+
+.form-auth {
+	max-width: 330px;
+	padding: 1rem;
+}
+
+.form-auth .form-floating:focus-within {
+	z-index: 2;
+}
+
+.form-auth input {
+	border-radius: 0;
+}
+
+.form-auth .form-floating:first-child input {
+	margin-bottom: -1px;
+	border-top-left-radius: var(--bs-border-radius);
+	border-top-right-radius: var(--bs-border-radius);
+}
+
+.form-auth .form-floating:last-child input {
+	margin-bottom: 10px;
+	border-bottom-right-radius: var(--bs-border-radius);
+	border-bottom-left-radius: var(--bs-border-radius);
+}

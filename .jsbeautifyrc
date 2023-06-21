@@ -1,0 +1,5 @@
+{
+	"wrap-attributes": "force-aligned",
+	"indent_char": "\t",
+	"print-width": 80
+}
