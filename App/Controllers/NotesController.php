@@ -13,7 +13,9 @@ class NotesController extends Controller
 {
 	public function show(int $id)
 	{
-		view('pages/notes/show', ['note' => Note::find($id)]);
+		$note = Note::find($id);
+		$folder = Folder::find($note->folder_id);
+		view('pages/notes/show', ['note' => $note, 'folder' => $folder]);
 	}
 
 	public function create()
@@ -61,5 +63,26 @@ class NotesController extends Controller
 			'errors' => $validator->getErrors(),
 			'fields' => $fields,
 		]);
+	}
+
+	public function destroy(int $id)
+	{
+		$note = Note::find($id);
+
+		if ($note->destroy()) {
+			Session::notify('Note was deleted!', 'success');
+			redirect();
+		}
+
+		redirect();
+	}
+
+	public function before(string $action, array $params = []): bool
+	{
+		if (!Session::check()) {
+			redirect('login');
+		}
+
+		return parent::before($action);
 	}
 }

@@ -17,7 +17,7 @@ $selectedOptionId = $fields['folder_id'] ?? $note->folder_id;
 			<div class="col-12">
 				<ul class="nav nav-pills p-3 bg-white mb-3 rounded-pill align-items-center justify-content-between">
 					<li class="nav-item d-flex flex-row">
-						<a href="<?= urlBack() ?>"
+						<a href="<?= url("notes/{$note->id}") ?>"
 						   class="nav-link rounded-pill note-link d-flex align-items-center px-2 px-md-3 mr-0 mr-md-2"><i class="fa fa-arrow-left"
 							   aria-hidden="true"></i> &nbsp; Back</a>
 					</li>
