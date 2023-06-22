@@ -7,6 +7,24 @@ use App\Models\Folder;
 
 class NotesValidator extends BaseValidator
 {
+	const REQUEST_RULES = [
+		'folder_id' => FILTER_VALIDATE_INT,
+		'title' => [
+			'filter' => 'is_string',
+			'flags' => FILTER_CALLBACK
+		],
+		'content' => [
+			'filter' => 'is_string',
+			'flags' => FILTER_CALLBACK
+		],
+		'users' => [
+			'filter' => FILTER_VALIDATE_INT,
+			'flags' => FILTER_REQUIRE_ARRAY,
+		],
+		'pinned' => FILTER_VALIDATE_BOOL,
+		'completed' => FILTER_VALIDATE_BOOL,
+	];
+
 	protected array $rules = [
 		'title' => [
 			'required' => true,

@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Helpers\Session;
 use App\Models\Folder;
 use App\Models\Note;
+use App\Models\User;
 use App\Services\NotesService;
 use App\Validators\NotesValidator;
 use Core\Controller;
@@ -20,12 +21,18 @@ class NotesController extends Controller
 
 	public function create()
 	{
-		view('pages/notes/create', ['folders' => Folder::getUserFolders()]);
+		$users = User::select()->where('id', '!=', Session::id())->get();
+
+		view('pages/notes/create', [
+			'folders' => Folder::getUserFolders(),
+			'users' => $users,
+		]);
 	}
 
 	public function store()
 	{
-		$fields = filter_input_array(INPUT_POST, $_POST);
+		$fields = filter_input_array(INPUT_POST, NotesValidator::REQUEST_RULES);
+
 		$validator = new NotesValidator();
 		if (NotesService::create($validator, $fields)) {
 			Session::notify('Note was created!', 'success');
