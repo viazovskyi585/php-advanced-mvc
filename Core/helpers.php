@@ -1,5 +1,6 @@
 <?php
 
+use App\Helpers\Session;
 use Config\Config;
 use Core\View;
 
@@ -13,9 +14,14 @@ function view(string $viewName, array $args = []): void
     View::render($viewName, $args);
 }
 
-function url(string $path): string
+function url(string $path = ''): string
 {
     return SITE_URL . '/' . $path;
+}
+
+function urlBack(): string
+{
+    return $_SERVER['HTTP_REFERER'] ?? url();
 }
 
 function redirect(string $path = ''): void
@@ -38,4 +44,28 @@ function getFieldError(string $field, array $errors): string
 function getFieldState(string $error): string
 {
     return $error ? 'is-invalid' : '';
+}
+
+function isCurrentLink(string $path): bool
+{
+    return trim($_SERVER['REQUEST_URI'], '/') === $path;
+}
+
+function findObjectById(array $array, int $id): object|null
+{
+    foreach ($array as $element) {
+        if ($id == $element->id) {
+            return $element;
+        }
+    }
+
+    return false;
+}
+
+function getAndResetNotifications(): array
+{
+    $notications = Session::getNotifications();
+    Session::flushNotifications();
+
+    return $notications;
 }

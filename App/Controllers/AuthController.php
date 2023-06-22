@@ -63,7 +63,7 @@ class AuthController extends Controller
 		redirect('login');
 	}
 
-	public function before(string $action): bool
+	public function before(string $action, array $params = []): bool
 	{
 		if (in_array($action, ['login', 'register']) && Session::check()) {
 			if (!empty($_SERVER['HTTP_REFERER'])) {

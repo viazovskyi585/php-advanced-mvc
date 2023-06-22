@@ -34,7 +34,7 @@ class Router
 		$controller = static::getController();
 		$action = static::getAction($controller);
 
-		if ($controller->before($action)) {
+		if ($controller->before($action, static::$params)) {
 			call_user_func_array([$controller, $action], static::$params);
 			$controller->after($action);
 		}
