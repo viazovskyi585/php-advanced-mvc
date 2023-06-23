@@ -41,11 +41,6 @@ class NotesService
 
 		$note = Note::find($id);
 
-		if (!$note) {
-			Session::notify('Note not found!', 'error');
-			redirect();
-		}
-
 		$sharedUsers = $fields['users'] ?? [];
 		unset($fields['users']);
 		$fields = static::prepareFields($fields);
@@ -84,12 +79,6 @@ class NotesService
 
 	public static function complete(Note $note): bool
 	{
-
-		if (!$note) {
-			Session::notify('Note not found!', 'error');
-			redirect();
-		}
-
 		if ($note->completed) {
 			Session::notify('Note already completed!', 'error');
 			redirect();

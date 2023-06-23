@@ -104,7 +104,7 @@ class NotesController extends Controller
 			redirect('login');
 		}
 
-		if (in_array($action, ['update', 'destroy', 'edit']) && !empty($params['id'])) {
+		if (in_array($action, ['update', 'destroy', 'edit', 'complete']) && !empty($params['id'])) {
 			$note = Note::find($params['id']);
 
 			if (!$note) {
