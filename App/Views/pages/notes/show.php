@@ -1,9 +1,4 @@
-<?php
-
-use App\Models\Folder;
-
-view('components/full-header');
-?>
+<?php view('components/full-header'); ?>
 <div class="container">
 	<div class="row">
 		<div class="col-12">
