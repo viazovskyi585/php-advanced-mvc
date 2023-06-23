@@ -77,7 +77,6 @@ $selectedOptionId = $fields['folder_id'] ?? $note->folder_id;
 							   role="switch"
 							   id="pinned"
 							   name="pinned"
-							   value="1"
 							   <?= $fields['pinned'] ?? $note->pinned ? 'checked' : '' ?>>
 						<label class="form-check-label"
 							   for="pinned">Pin note</label>

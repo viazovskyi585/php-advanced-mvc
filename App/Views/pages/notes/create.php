@@ -74,8 +74,7 @@ $contentError = getFieldError('content', $errors);
 							   type="checkbox"
 							   role="switch"
 							   id="pinned"
-							   name="pinned"
-							   value="1">
+							   name="pinned">
 						<label class="form-check-label"
 							   for="pinned">Pin note</label>
 					</div>

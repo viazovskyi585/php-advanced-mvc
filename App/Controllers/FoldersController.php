@@ -106,6 +106,7 @@ class FoldersController extends Controller
 		if (!Session::check()) {
 			redirect('login');
 		}
+
 		if (in_array($action, ['update', 'destroy', 'edit']) && !empty($params['id']) && Folder::isFrozen($params['id'])) {
 			redirect();
 		}

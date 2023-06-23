@@ -93,6 +93,22 @@ class NotesController extends Controller
 			redirect('login');
 		}
 
+		if (in_array($action, ['update', 'destroy', 'edit']) && !empty($params['id'])) {
+			$note = Note::find($params['id']);
+
+			if (!$note) {
+				Session::notify('Note not found!', 'danger');
+				redirect();
+			}
+
+			if (!isCurrentUser($note->author_id)) {
+				Session::notify('You are not allowed make changed to this note!', 'danger');
+				redirect();
+			}
+
+			redirect();
+		}
+
 		return parent::before($action);
 	}
 }
