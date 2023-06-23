@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Helpers\Session;
 use App\Models\Folder;
 use App\Models\Note;
+use App\Models\SharedNote;
 use App\Models\User;
 use App\Services\NotesService;
 use App\Validators\NotesValidator;
@@ -51,12 +52,14 @@ class NotesController extends Controller
 		view('pages/notes/edit', [
 			'note' => Note::find($id),
 			'folders' => Folder::getUserFolders(),
+			'users' => User::select()->where('id', '!=', Session::id())->get(),
+			'sharedUsers' => SharedNote::select(['user_id'])->where('note_id', '=', $id)->pluck('user_id'),
 		]);
 	}
 
 	public function update(int $id)
 	{
-		$fields = filter_input_array(INPUT_POST, $_POST);
+		$fields = filter_input_array(INPUT_POST, NotesValidator::REQUEST_RULES);
 		$validator = new NotesValidator();
 
 		if (NotesService::update($validator, $id, $fields)) {
