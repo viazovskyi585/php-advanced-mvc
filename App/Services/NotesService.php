@@ -28,6 +28,7 @@ class NotesService
 		}
 
 		$fields['author_id'] = Session::id();
+		$fields['completed'] = 0;
 
 		return $noteId;
 	}
@@ -79,6 +80,22 @@ class NotesService
 		}
 
 		return true;
+	}
+
+	public static function complete(Note $note): bool
+	{
+
+		if (!$note) {
+			Session::notify('Note not found!', 'error');
+			redirect();
+		}
+
+		if ($note->completed) {
+			Session::notify('Note already completed!', 'error');
+			redirect();
+		}
+
+		return $note->update(['completed' => 1]);
 	}
 
 	static protected function prepareFields(array $fields): array

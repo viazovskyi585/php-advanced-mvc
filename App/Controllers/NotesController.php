@@ -87,6 +87,17 @@ class NotesController extends Controller
 		redirect();
 	}
 
+	public function complete(int $id)
+	{
+		$note = Note::find($id);
+
+		if (NotesService::complete($note)) {
+			Session::notify("Note '{$note->title}' was completed!", 'success');
+		}
+
+		redirect();
+	}
+
 	public function before(string $action, array $params = []): bool
 	{
 		if (!Session::check()) {

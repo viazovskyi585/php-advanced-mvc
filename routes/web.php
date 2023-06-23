@@ -106,3 +106,9 @@ Router::add('notes/{id:\d+}/update', [
 	'action' => 'update',
 	'method' => 'POST'
 ]);
+
+Router::add('notes/{id:\d+}/complete', [
+	'controller' => \App\Controllers\NotesController::class,
+	'action' => 'complete',
+	'method' => 'POST'
+]);

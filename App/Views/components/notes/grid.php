@@ -23,6 +23,15 @@ $dots = strlen($content) > 10 ? '...' : '';
 			</p>
 		</div>
 		<div class="d-flex align-items-center justify-content-end">
+			<?php if (!$note->completed) : ?>
+				<form action="<?= url('notes/' . $note->id . '/complete') ?>"
+					  method="post"
+					  style="margin-right: auto">
+					<button class="btn btn-outline-success"
+							style="margin-right: 1rem"><i class="fa fa-check"
+						   aria-hidden="true"></i></button>
+				</form>
+			<?php endif; ?>
 			<a class="btn btn-outline-primary"
 			   href="<?= url('notes/' . $note->id) ?>"
 			   style="margin-right: 1rem"><i class="fa fa-eye"
