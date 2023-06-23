@@ -105,8 +105,6 @@ class NotesController extends Controller
 				Session::notify('You are not allowed make changed to this note!', 'danger');
 				redirect();
 			}
-
-			redirect();
 		}
 
 		return parent::before($action);
