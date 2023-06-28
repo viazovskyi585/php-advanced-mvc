@@ -28,6 +28,7 @@ class NotesService
 		}
 
 		$fields['author_id'] = Session::id();
+		$fields['completed'] = 0;
 
 		return $noteId;
 	}
@@ -40,12 +41,50 @@ class NotesService
 
 		$note = Note::find($id);
 
-		if (!$note) {
-			Session::notify('Note not found!', 'error');
+		$sharedUsers = $fields['users'] ?? [];
+		unset($fields['users']);
+		$fields = static::prepareFields($fields);
+
+		static::updateSharedNotesUsers($sharedUsers, $id);
+
+		return $note->update($fields);
+	}
+
+	static protected function updateSharedNotesUsers(array $newSharedUsers, int $noteId): bool
+	{
+		$oldSharedUsers = SharedNote::select(['user_id'])->where('note_id', '=', $noteId)->pluck('user_id');
+
+		$usersToDelete = array_diff($oldSharedUsers, $newSharedUsers);
+		$usersToAdd = array_diff($newSharedUsers, $oldSharedUsers);
+
+		if (!empty($usersToDelete)) {
+			$sharedNotesToDelete = SharedNote::select()
+				->where('note_id', '=', $noteId)
+				->whereIn('user_id', $usersToDelete)
+				->get();
+
+			foreach ($sharedNotesToDelete as $sharedNote) {
+				$sharedNote->destroy();
+			}
+		}
+
+		if (!empty($usersToAdd)) {
+			foreach ($usersToAdd as $userId) {
+				SharedNote::create(['note_id' => $noteId, 'user_id' => $userId]);
+			}
+		}
+
+		return true;
+	}
+
+	public static function complete(Note $note): bool
+	{
+		if ($note->completed) {
+			Session::notify('Note already completed!', 'error');
 			redirect();
 		}
 
-		return $note->update($fields);
+		return $note->update(['completed' => 1]);
 	}
 
 	static protected function prepareFields(array $fields): array

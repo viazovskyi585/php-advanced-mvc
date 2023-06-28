@@ -6,7 +6,15 @@ $dots = strlen($content) > 10 ? '...' : '';
 	<div class="card card-body">
 		<span class="side-stick"></span>
 		<h5 class="note-title text-truncate w-75 mb-0"
-			data-noteheading="Go for lunch"><?= $note->title ?></h5>
+			data-noteheading="Go for lunch">
+			<?= $note->pinned ? '<i class="fa fa-thumb-tack" aria-hidden="true"></i>&nbsp;' : '' ?>
+			<?= $note->shared ? '<i class="fa fa-users" aria-hidden="true"></i>&nbsp;' : '' ?>
+			<?= $note->completed ? '<i class="fa fa-check-square" aria-hidden="true"></i>&nbsp;' : '' ?>
+			<?= $note->title ?>
+		</h5>
+		<small class="note-date font-8 text-muted">
+			<?= $note->author ? "Author: {$note->author}" : '' ?>
+		</small>
 		<p class="note-date font-12 text-muted"><?= $note->created_at ?></p>
 		<div class="note-content">
 			<p class="note-inner-content text-muted"
@@ -15,6 +23,15 @@ $dots = strlen($content) > 10 ? '...' : '';
 			</p>
 		</div>
 		<div class="d-flex align-items-center justify-content-end">
+			<?php if (!$note->completed) : ?>
+				<form action="<?= url('notes/' . $note->id . '/complete') ?>"
+					  method="post"
+					  style="margin-right: auto">
+					<button class="btn btn-outline-success"
+							style="margin-right: 1rem"><i class="fa fa-check"
+						   aria-hidden="true"></i></button>
+				</form>
+			<?php endif; ?>
 			<a class="btn btn-outline-primary"
 			   href="<?= url('notes/' . $note->id) ?>"
 			   style="margin-right: 1rem"><i class="fa fa-eye"

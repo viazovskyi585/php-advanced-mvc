@@ -8,26 +8,33 @@
 					   class="nav-link rounded-pill note-link d-flex align-items-center px-2 px-md-3 mr-0 mr-md-2"><i class="fa fa-arrow-left"
 						   aria-hidden="true"></i> &nbsp; Back</a>
 				</li>
+
 				<li class="nav-item">
 					<h3><?= $note->title ?></h3>
 				</li>
+
 				<li class="nav-item d-flex flex-row">
-					<a href="<?= url('notes/create') ?>"
-					   class="nav-link rounded-pill note-link d-flex align-items-center px-2 px-md-3 mr-0 mr-md-2"><i class="fa fa-plus-circle"
-						   aria-hidden="true"></i></a>
-					<a href="<?= url("notes/" . $note->id . "/edit") ?>"
-					   class="nav-link rounded-pill note-link d-flex align-items-center px-2 px-md-3 mr-0 mr-md-2"
-					   style="color: #4f4f1c;"><i class="fa fa-pencil"
-						   aria-hidden="true"></i></a>
-					<form action="<?= url("notes/" . $note->id . "/destroy") ?>"
-						  method="POST">
-						<button type="submit"
-								class="nav-link rounded-pill note-link d-flex align-items-center px-2 px-md-3 mr-0 mr-md-2"
-								style="color: #e22424;">
-							<i class="fa fa-trash"
-							   aria-hidden="true"></i>
-						</button>
-					</form>
+					<?php if (isCurrentUser($note->author_id)) : ?>
+
+						<a href="<?= url('notes/create') ?>"
+						   class="nav-link rounded-pill note-link d-flex align-items-center px-2 px-md-3 mr-0 mr-md-2"><i class="fa fa-plus-circle"
+							   aria-hidden="true"></i></a>
+
+						<a href="<?= url("notes/" . $note->id . "/edit") ?>"
+						   class="nav-link rounded-pill note-link d-flex align-items-center px-2 px-md-3 mr-0 mr-md-2"
+						   style="color: #4f4f1c;"><i class="fa fa-pencil"
+							   aria-hidden="true"></i></a>
+
+						<form action="<?= url("notes/" . $note->id . "/destroy") ?>"
+							  method="POST">
+							<button type="submit"
+									class="nav-link rounded-pill note-link d-flex align-items-center px-2 px-md-3 mr-0 mr-md-2"
+									style="color: #e22424;">
+								<i class="fa fa-trash"
+								   aria-hidden="true"></i>
+							</button>
+						</form>
+					<?php endif ?>
 				</li>
 			</ul>
 		</div>

@@ -25,14 +25,12 @@ class FoldersController extends Controller
 
 	public function show(int $id)
 	{
-
 		$folders = Folder::select()
 			->whereIn('author_id', [Session::id(), 0])
 			->get();
 
 		$activeFolder = findObjectById($folders, $id);
-
-		$notes = Note::byFolderId($id);
+		$notes = $id === Folder::$SHARED_FOLDER_ID ? Note::sharedNotes() : Note::byFolderId($id);
 
 		view('pages/dashboard', compact('notes', 'folders', 'activeFolder'));
 	}
@@ -108,6 +106,7 @@ class FoldersController extends Controller
 		if (!Session::check()) {
 			redirect('login');
 		}
+
 		if (in_array($action, ['update', 'destroy', 'edit']) && !empty($params['id']) && Folder::isFrozen($params['id'])) {
 			redirect();
 		}

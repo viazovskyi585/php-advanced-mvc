@@ -1,6 +1,7 @@
 <?php
 
 use App\Helpers\Session;
+use App\Models\Folder;
 use Config\Config;
 use Core\View;
 
@@ -68,4 +69,9 @@ function getAndResetNotifications(): array
     Session::flushNotifications();
 
     return $notications;
+}
+
+function isCurrentUser(int $id): bool
+{
+    return Session::id() === $id;
 }

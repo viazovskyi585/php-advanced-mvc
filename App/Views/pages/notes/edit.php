@@ -71,6 +71,32 @@ $selectedOptionId = $fields['folder_id'] ?? $note->folder_id;
 				<?php endif; ?>
 
 				<div class="mb-3">
+					<div class="form-check form-switch">
+						<input class="form-check-input"
+							   type="checkbox"
+							   role="switch"
+							   id="pinned"
+							   name="pinned"
+							   <?= $fields['pinned'] ?? $note->pinned ? 'checked' : '' ?>>
+						<label class="form-check-label"
+							   for="pinned">Pin note</label>
+					</div>
+				</div>
+
+				<div class="mb-3">
+					<div class="form-check form-switch">
+						<input class="form-check-input"
+							   type="checkbox"
+							   role="switch"
+							   id="completed"
+							   name="completed"
+							   <?= $fields['completed'] ?? $note->completed ? 'checked' : '' ?>>
+						<label class="form-check-label"
+							   for="completed">Complete note</label>
+					</div>
+				</div>
+
+				<div class="mb-3">
 					<label for="content"
 						   class="form-label">Content</label>
 					<textarea class="form-control"
@@ -84,6 +110,20 @@ $selectedOptionId = $fields['folder_id'] ?? $note->folder_id;
 						<?= $contentError ?>
 					</div>
 				<?php endif; ?>
+
+				<div class="mb-3">
+					<label for="users"
+						   class="form-label">Share note with users</label>
+					<select name="users[]"
+							id="users"
+							class="form-control"
+							multiple>
+						<?php foreach ($users as $user) : ?>
+							<option value="<?= $user->id ?>"
+									<?= in_array($user->id, $sharedUsers) ? 'selected' : '' ?>><?= $user->email ?></option>
+						<?php endforeach; ?>
+					</select>
+				</div>
 
 				<div class="mb-3 d-flex justify-content-end">
 					<button type="submit"

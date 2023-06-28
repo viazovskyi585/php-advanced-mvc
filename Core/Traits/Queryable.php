@@ -93,12 +93,15 @@ trait Queryable
 		$query = "UPDATE " . static::$tableName . " SET" . $this->updatePlaceholders(array_keys($fields)) . " WHERE id=:id";
 		$query = Db::connect()->prepare($query);
 		$fields['id'] = $this->getId();
-
 		return $query->execute($fields);
 	}
 
 	public function destroy(): bool
 	{
+		if (!$this->getId()) {
+			throw new \Exception("[Queryable]: Model does not have an id");
+		}
+
 		$query = "DELETE FROM " . static::$tableName . " WHERE id=:id";
 		$query = Db::connect()->prepare($query);
 
@@ -150,7 +153,18 @@ trait Queryable
 		return $this->where($column, 'IN', $value);
 	}
 
-	public function orderBy(string $column, string $sqlOrder = 'ASC'): static
+	public function whereNotIn(string $column, array $value, $type = 'AND'): static
+	{
+		if (in_array('where', static::$commands[])) {
+			static::$query .= " {$type}";
+		}
+
+		$value = "(" . implode(',', $value) . ") ";
+
+		return $this->where($column, 'NOT IN', $value);
+	}
+
+	public function orderBy(array $columns, string $sqlOrder = 'ASC'): static
 	{
 		if (!$this->prevent(['select'])) {
 			throw new \Exception("[Queryable]: ORDER BY can not be before ['select']");
@@ -158,14 +172,21 @@ trait Queryable
 
 		static::$commands[] = 'order';
 
-		static::$query .= " ORDER BY {$column} " . $sqlOrder;
+		static::$query .= " ORDER BY ";
+
+		$lastKey = array_key_last($columns);
+		foreach ($columns as $column => $order) {
+			static::$query .= " {$column} {$order}" . ($column === $lastKey ? '' : ',');
+		}
 
 		return $this;
 	}
 
 	public function getSqlQuery(): string
 	{
-		return static::$query;
+		$query = static::$query;
+		static::resetQuery();
+		return $query;
 	}
 
 	protected function prevent(array $allowedMethods): bool
@@ -189,5 +210,43 @@ trait Queryable
 		}
 
 		return $string;
+	}
+
+	public function groupBy(array $columns): static
+	{
+		if (!$this->prevent(['select'])) {
+			throw new \Exception("[Queryable]: GROUP BY can not be before ['select']");
+		}
+
+		static::$commands[] = 'group';
+
+		static::$query .= " GROUP BY " . implode(', ', $columns);
+
+		return $this;
+	}
+
+	public function join(string $table, string $t1Column, string $t2Column, string $operator = '=', string $type = 'LEFT'): static
+	{
+		if (!$this->prevent(['select'])) {
+			throw new \Exception("[Queryable]: {$type} JOIN can not be before ['select']");
+		}
+
+		static::$commands[] = 'join';
+
+		static::$query .= " {$type} JOIN {$table} ON {$t1Column} {$operator} {$t2Column}";
+
+		return $this;
+	}
+
+	public function pluck(string $column): array
+	{
+		$result = $this->get();
+		$newArr = [];
+
+		foreach ($result as $item) {
+			$newArr[] = $item->$column;
+		}
+
+		return $newArr;
 	}
 }

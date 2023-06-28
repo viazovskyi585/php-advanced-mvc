@@ -26,7 +26,12 @@ class Folder extends Model
 		return static::select()
 			->where('author_id', '=', Session::id())
 			->orWhere('id', '=', static::$GENERAL_FOLDER_ID)
-			->orderBy('id')
+			->orderBy(['id' => 'ASC'])
 			->get();
+	}
+
+	static public function sharedNotesForUser(): bool
+	{
+		return (bool) SharedNote::select()->where('user_id', '=', Session::id())->get();
 	}
 }
